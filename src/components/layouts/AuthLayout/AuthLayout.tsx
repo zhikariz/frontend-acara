@@ -1,5 +1,5 @@
 import PageHead from "@/components/commons/PageHead";
-import { Fragment, ReactNode } from "react";
+import { ReactNode } from "react";
 
 interface PropTypes {
   children: ReactNode;
