@@ -19,7 +19,7 @@ export async function getServerSideProps(context: { query: { code: string } }) {
     const result = await authServices.activation({
       code: context.query.code,
     });
-    if (result.data.data) {
+    if (result.data?.data) {
       return {
         props: {
           status: "success",
