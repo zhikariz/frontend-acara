@@ -46,7 +46,6 @@ const useRegister = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    setError,
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
@@ -65,9 +64,6 @@ const useRegister = () => {
     },
     onError: (error) => {
       setToaster({ type: "error", message: error.message });
-      // setError("root", {
-      // message: error.message,
-      // });
     },
   });
 

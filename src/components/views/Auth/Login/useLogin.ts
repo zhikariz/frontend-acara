@@ -29,7 +29,6 @@ const useLogin = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    setError,
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
@@ -52,11 +51,8 @@ const useLogin = () => {
       setToaster({ type: "success", message: "Login Success" });
       router.push(callbackUrl);
     },
-    onError: (error) => {
+    onError: () => {
       setToaster({ type: "error", message: "Your credentials is invalid" });
-      // setError("root", {
-      //   message: error.message,
-      // });
     },
   });
 
