@@ -17,17 +17,18 @@ const AppShell = (props: PropTypes) => {
   const { children } = props;
   const { toaster, setToaster } = useContext(ToasterContext);
   useEffect(() => {
+    // Membuat toaster gaada setelah 3 detik
     const timeout = setTimeout(() => {
       setToaster(defaultToaster);
     }, 3000);
     return () => {
       clearTimeout(timeout);
     };
-  }, []);
+  }, [toaster, setToaster]);
   return (
     <main className={cn(inter.className)}>
       {children}
-      {toaster.type !== "" && (
+      {toaster.message && (
         <Toaster type={toaster.type} message={toaster.message} />
       )}
     </main>
