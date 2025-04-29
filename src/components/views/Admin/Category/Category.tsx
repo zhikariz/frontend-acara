@@ -41,7 +41,7 @@ const Category = () => {
     if (isReady) {
       setURL();
     }
-  }, [isReady]);
+  }, [isReady, setURL]);
 
   const renderCell = useCallback(
     (category: Record<string, unknown>, columnKey: Key) => {

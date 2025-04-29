@@ -1,7 +1,7 @@
 import { cn } from "@/utils/cn";
 import { Button, Spinner } from "@heroui/react";
 import Image from "next/image";
-import { ChangeEvent, useEffect, useId, useRef } from "react";
+import { ChangeEvent, useCallback, useEffect, useId, useRef } from "react";
 import { CiSaveUp2, CiTrash } from "react-icons/ci";
 
 interface PropTypes {
@@ -37,13 +37,16 @@ const InputFile = (props: PropTypes) => {
     e.stopPropagation();
   };
 
-  const handleDrop = (e: DragEvent) => {
-    e.preventDefault();
-    const files = e.dataTransfer?.files;
-    if (files && onUpload) {
-      onUpload(files);
-    }
-  };
+  const handleDrop = useCallback(
+    (e: DragEvent) => {
+      e.preventDefault();
+      const files = e.dataTransfer?.files;
+      if (files && onUpload) {
+        onUpload(files);
+      }
+    },
+    [onUpload],
+  );
 
   useEffect(() => {
     const dropCurrent = drop.current;
@@ -55,7 +58,7 @@ const InputFile = (props: PropTypes) => {
         dropCurrent.removeEventListener("drop", handleDrop);
       };
     }
-  }, []);
+  }, [handleDrop]);
 
   const handleOnUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.currentTarget.files;
