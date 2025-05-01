@@ -38,7 +38,7 @@ const DeleteCategoryModal = (props: PropTypes) => {
       onClose();
       refetchCategory();
     }
-  }, [isSuccessMutateDeleteCategory]);
+  }, [isSuccessMutateDeleteCategory, onClose, refetchCategory]);
 
   return (
     <Modal
@@ -62,7 +62,7 @@ const DeleteCategoryModal = (props: PropTypes) => {
           <Button
             color="danger"
             variant="flat"
-            onPress={() => onClose}
+            onPress={() => onClose()}
             disabled={isPendingMutateDeleteCategory}
           >
             Cancel

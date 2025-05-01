@@ -41,7 +41,7 @@ const Category = () => {
     if (isReady) {
       setURL();
     }
-  }, [isReady, setURL]);
+  }, [isReady]);
 
   const renderCell = useCallback(
     (category: Record<string, unknown>, columnKey: Key) => {
@@ -84,7 +84,7 @@ const Category = () => {
           return cellValue as ReactNode;
       }
     },
-    [push],
+    [push, deleteCategoryModal],
   );
 
   return (
