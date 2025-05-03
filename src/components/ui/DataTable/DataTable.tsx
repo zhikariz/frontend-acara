@@ -1,5 +1,5 @@
 import { LIMIT_LISTS } from "@/constants/list.constants";
-import useChangeUrl from "@/hooks/useChangeURL";
+import useChangeUrl from "@/hooks/useChangeUrl";
 import { cn } from "@/utils/cn";
 import {
   Button,
