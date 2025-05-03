@@ -49,7 +49,6 @@ const DataTable = (props: PropTypes) => {
 
     currentLimit,
     currentPage,
-    currentSearch,
   } = useChangeUrl();
 
   const TopContent = useMemo(() => {
