@@ -15,7 +15,7 @@ const Event = () => {
     isLoadingEvent,
     isRefetchingEvent,
     refetchEvent,
-    selectedId,
+    // selectedId,
     setSelectedId,
   } = useEvent();
 
