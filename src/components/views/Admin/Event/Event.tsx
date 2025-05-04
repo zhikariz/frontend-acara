@@ -7,7 +7,7 @@ import useEvent from "./useEvent";
 import { COLUMN_LIST_EVENT } from "./Event.constants";
 import DropdownAction from "@/components/commons/DropdownAction";
 import AddEventModal from "./AddEventModal";
-import DeleteEventModal from "./DeleteEventModal/DeleteEventModal";
+import DeleteEventModal from "./DeleteEventModal";
 import Image from "next/image";
 
 const Event = () => {

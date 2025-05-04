@@ -1,3 +1,3 @@
-import DeleteCategoryModal from "./DeleteCategoryModal";
+import DeleteEventModal from "./DeleteEventModal";
 
-export default DeleteCategoryModal;
+export default DeleteEventModal;
