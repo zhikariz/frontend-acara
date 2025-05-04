@@ -7,6 +7,8 @@ import useEvent from "./useEvent";
 import { COLUMN_LIST_EVENT } from "./Event.constants";
 import DropdownAction from "@/components/commons/DropdownAction";
 import AddEventModal from "./AddEventModal";
+import DeleteEventModal from "./DeleteEventModal/DeleteEventModal";
+import Image from "next/image";
 
 const Event = () => {
   const { push, isReady, query } = useRouter();
@@ -15,7 +17,7 @@ const Event = () => {
     isLoadingEvent,
     isRefetchingEvent,
     refetchEvent,
-    // selectedId,
+    selectedId,
     setSelectedId,
   } = useEvent();
 
@@ -35,16 +37,16 @@ const Event = () => {
       const cellValue = event[columnKey as keyof typeof event];
 
       switch (columnKey) {
-        // case "banner":
-        //   return (
-        //     <Image
-        //       className="aspect-video w-36 object-cover rounded-lg"
-        //       src={`${cellValue}`}
-        //       alt="icon"
-        //       width={200}
-        //       height={100}
-        //     />
-        //   );
+        case "banner":
+          return (
+            <Image
+              className="aspect-video w-36 rounded-lg object-cover"
+              src={`${cellValue}`}
+              alt="banner"
+              width={200}
+              height={100}
+            />
+          );
         case "isPublish":
           return (
             <Chip
@@ -87,12 +89,12 @@ const Event = () => {
         />
       )}
       <AddEventModal refetchEvent={refetchEvent} {...addEventModal} />
-      {/* <DeleteCategoryModal */}
-      {/*   refetchCategory={refetchCategory} */}
-      {/*   selectedId={selectedId} */}
-      {/*   setSelectedId={setSelectedId} */}
-      {/*   {...deleteCategoryModal} */}
-      {/* /> */}
+      <DeleteEventModal
+        refetchEvent={refetchEvent}
+        selectedId={selectedId}
+        setSelectedId={setSelectedId}
+        {...deleteEventModal}
+      />
     </section>
   );
 };
