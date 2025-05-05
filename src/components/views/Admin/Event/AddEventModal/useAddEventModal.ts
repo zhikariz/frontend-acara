@@ -130,13 +130,13 @@ const useAddEventModal = () => {
   const handleAddEvent = (data: IEventForm) => {
     const payload = {
       ...data,
-      isFeatured: Boolean(data.isFeatured),
-      isPublish: Boolean(data.isPublish),
-      isOnline: Boolean(data.isOnline),
-      startDate: toDateStandard(data.startDate),
-      endDate: toDateStandard(data.endDate),
+      isFeatured: data.isFeatured === "true" || data.isFeatured === true,
+      isPublish: data.isPublish === "true" || data.isPublish === true,
+      isOnline: data.isOnline === "true" || data.isOnline === true,
+      startDate: data.startDate ? toDateStandard(data.startDate) : "",
+      endDate: data.endDate ? toDateStandard(data.endDate) : "",
       location: {
-        region: data.region,
+        region: `${data.region}`,
         coordinates: [Number(data.latitude), Number(data.longitude)],
       },
       banner: data.banner,
