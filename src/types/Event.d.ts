@@ -12,6 +12,7 @@ interface IEvent {
   isOnline?: boolean | string;
   description?: string;
   location?: {
+    address: string;
     region: string;
     coordinates: number[];
   };
@@ -24,6 +25,7 @@ interface IRegency {
 }
 
 interface IEventForm extends IEvent {
+  address?: string;
   region?: string;
   startDate?: DateValue;
   endDate?: DateValue;

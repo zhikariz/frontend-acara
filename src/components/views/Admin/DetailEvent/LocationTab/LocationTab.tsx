@@ -50,6 +50,7 @@ const LocationTab = (props: PropTypes) => {
     if (dataEvent) {
       setValueUpdateLocation("isOnline", `${dataEvent?.isOnline}`);
       setValueUpdateLocation("region", `${dataEvent?.location?.region}`);
+      setValueUpdateLocation("address", `${dataEvent?.location?.address}`);
       setValueUpdateLocation(
         "latitude",
         `${dataEvent?.location?.coordinates[0]}`,
@@ -80,6 +81,25 @@ const LocationTab = (props: PropTypes) => {
           className="flex flex-col gap-4"
           onSubmit={handleSubmitUpdateLocation(onUpdate)}
         >
+          <Skeleton
+            isLoaded={!!dataEvent?.location?.address}
+            className="rounded-lg"
+          >
+            <Controller
+              name="address"
+              control={controlUpdateLocation}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  label="Address"
+                  variant="bordered"
+                  labelPlacement="outside"
+                  isInvalid={errorsUpdateLocation.address !== undefined}
+                  errorMessage={errorsUpdateLocation.address?.message}
+                />
+              )}
+            />
+          </Skeleton>
           <Skeleton
             isLoaded={dataEvent?.isOnline !== undefined}
             className="rounded-lg"
