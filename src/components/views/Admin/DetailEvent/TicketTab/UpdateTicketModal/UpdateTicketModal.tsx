@@ -9,35 +9,56 @@ import {
   Spinner,
   Textarea,
 } from "@heroui/react";
-import useAddTicketModal from "./useAddTicketModal";
 import { Controller } from "react-hook-form";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import useUpdateTicketModal from "./useUpdateTicketModal";
+import { ITicket } from "@/types/Ticket";
 
 interface PropTypes {
   isOpen: boolean;
   onClose: () => void;
   onOpenChange: () => void;
   refetchTicket: () => void;
+  selectedTicket: ITicket | null;
+  setSelectedTicket: Dispatch<SetStateAction<ITicket | null>>;
 }
 
-const AddTicketModal = (props: PropTypes) => {
-  const { isOpen, onClose, onOpenChange, refetchTicket } = props;
+const UpdateTicketModal = (props: PropTypes) => {
+  const {
+    isOpen,
+    onClose,
+    onOpenChange,
+    refetchTicket,
+    selectedTicket,
+    setSelectedTicket,
+  } = props;
   const {
     control,
     errors,
     reset,
     handleSubmitForm,
-    handleAddTicket,
-    isPendingMutateAddTicket,
-    isSuccessMutateAddTicket,
-  } = useAddTicketModal();
+    handleUpdateTicket,
+    isPendingMutateUpdateTicket,
+    isSuccessMutateUpdateTicket,
+    setValueUpdateTicket,
+  } = useUpdateTicketModal(`${selectedTicket?._id}`);
 
   useEffect(() => {
-    if (isSuccessMutateAddTicket) {
+    if (isSuccessMutateUpdateTicket) {
       onClose();
       refetchTicket();
+      setSelectedTicket(null);
     }
-  }, [isSuccessMutateAddTicket, refetchTicket, onClose]);
+  }, [isSuccessMutateUpdateTicket, refetchTicket, onClose]);
+
+  useEffect(() => {
+    if (selectedTicket) {
+      setValueUpdateTicket("name", `${selectedTicket.name}`);
+      setValueUpdateTicket("price", `${selectedTicket.price}`);
+      setValueUpdateTicket("quantity", `${selectedTicket.quantity}`);
+      setValueUpdateTicket("description", `${selectedTicket.description}`);
+    }
+  }, [selectedTicket]);
 
   const handleOnClose = () => {
     reset();
@@ -52,9 +73,9 @@ const AddTicketModal = (props: PropTypes) => {
       scrollBehavior="inside"
       onClose={handleOnClose}
     >
-      <form onSubmit={handleSubmitForm(handleAddTicket)}>
+      <form onSubmit={handleSubmitForm(handleUpdateTicket)}>
         <ModalContent className="m-4">
-          <ModalHeader>Add Ticket</ModalHeader>
+          <ModalHeader>Update Ticket</ModalHeader>
           <ModalBody>
             <div className="flex flex-col gap-2">
               <p className="text-sm font-bold">Information</p>
@@ -123,19 +144,19 @@ const AddTicketModal = (props: PropTypes) => {
               color="danger"
               variant="flat"
               onPress={handleOnClose}
-              disabled={isPendingMutateAddTicket}
+              disabled={isPendingMutateUpdateTicket}
             >
               Cancel
             </Button>
             <Button
               color="danger"
               type="submit"
-              disabled={isPendingMutateAddTicket}
+              disabled={isPendingMutateUpdateTicket}
             >
-              {isPendingMutateAddTicket ? (
+              {isPendingMutateUpdateTicket ? (
                 <Spinner size="sm" color="white" />
               ) : (
-                "Create Ticket"
+                "Update Ticket"
               )}
             </Button>
           </ModalFooter>
@@ -145,4 +166,4 @@ const AddTicketModal = (props: PropTypes) => {
   );
 };
 
-export default AddTicketModal;
+export default UpdateTicketModal;
