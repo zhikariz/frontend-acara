@@ -1,7 +1,7 @@
 import { DELAY, LIMIT_DEFAULT, PAGE_DEFAULT } from "@/constants/list.constants";
 import { useRouter } from "next/router";
 import useDebounce from "./useDebounce";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useCallback } from "react";
 
 const useChangeUrl = () => {
   const router = useRouter();
@@ -12,15 +12,26 @@ const useChangeUrl = () => {
   const currentPage = router.query.page;
   const currentSearch = router.query.search;
 
-  const setUrl = () => {
+  const setUrl = useCallback(() => {
+    const newQuery = {
+      limit: currentLimit || LIMIT_DEFAULT,
+      page: currentPage || PAGE_DEFAULT,
+      search: currentSearch || "",
+    };
+
+    if (
+      router.query.limit === newQuery.limit &&
+      router.query.page === newQuery.page &&
+      router.query.search === newQuery.search
+    ) {
+      return;
+    }
+
     router.replace({
-      query: {
-        limit: currentLimit || LIMIT_DEFAULT,
-        page: currentPage || PAGE_DEFAULT,
-        search: currentSearch || "",
-      },
+      pathname: router.pathname,
+      query: newQuery,
     });
-  };
+  }, [router, currentLimit, currentPage, currentSearch]);
 
   const handleChangePage = (page: number) => {
     router.push({
