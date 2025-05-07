@@ -82,7 +82,7 @@ const AddTicketModal = (props: PropTypes) => {
                       {...field}
                       label="Price"
                       variant="bordered"
-                      type="text"
+                      type="number"
                       isInvalid={errors.price !== undefined}
                       errorMessage={errors.price?.message}
                     />

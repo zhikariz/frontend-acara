@@ -10,8 +10,8 @@ import * as Yup from "yup";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Please input name"),
-  price: Yup.number().required("Please input price"),
-  quantity: Yup.number().required("Please input quantity"),
+  price: Yup.string().required("Please input price"),
+  quantity: Yup.string().required("Please input quantity"),
   description: Yup.string().required("Please input description"),
 });
 
