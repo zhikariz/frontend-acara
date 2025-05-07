@@ -45,6 +45,7 @@ const Event = () => {
               alt="banner"
               width={200}
               height={100}
+              priority
             />
           );
         case "isPublish":

@@ -88,6 +88,7 @@ const DataTable = (props: PropTypes) => {
       <div className="flex items-center justify-center px-2 py-2 lg:justify-between">
         {showLimit && (
           <Select
+            aria-label="Limit"
             className="hidden max-w-36 lg:block"
             size="md"
             selectedKeys={[`${currentLimit}`]}
@@ -125,6 +126,7 @@ const DataTable = (props: PropTypes) => {
   ]);
   return (
     <Table
+      aria-label="Data Table"
       topContent={TopContent}
       topContentPlacement="outside"
       bottomContent={BottomContent}
