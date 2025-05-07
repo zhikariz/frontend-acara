@@ -8,38 +8,38 @@ import {
   Spinner,
 } from "@heroui/react";
 import { Dispatch, SetStateAction, useEffect } from "react";
-import useDeleteCategoryModal from "./useDeleteCategoryModal";
+import useDeleteBannerModal from "./useDeleteBannerModal";
 
 interface PropTypes {
   isOpen: boolean;
   onClose: () => void;
   onOpenChange: () => void;
-  refetchCategory: () => void;
+  refetchBanner: () => void;
   selectedId: string;
   setSelectedId: Dispatch<SetStateAction<string>>;
 }
-const DeleteCategoryModal = (props: PropTypes) => {
+const DeleteBannerModal = (props: PropTypes) => {
   const {
     isOpen,
     onClose,
     onOpenChange,
-    refetchCategory,
+    refetchBanner,
     selectedId,
     setSelectedId,
   } = props;
   const {
-    mutateDeleteCategory,
-    isPendingMutateDeleteCategory,
-    isSuccessMutateDeleteCategory,
-  } = useDeleteCategoryModal();
+    mutateDeleteBanner,
+    isPendingMutateDeleteBanner,
+    isSuccessMutateDeleteBanner,
+  } = useDeleteBannerModal();
 
   useEffect(() => {
-    if (isSuccessMutateDeleteCategory) {
+    if (isSuccessMutateDeleteBanner) {
       onClose();
-      refetchCategory();
+      refetchBanner();
       setSelectedId("");
     }
-  }, [isSuccessMutateDeleteCategory, onClose, refetchCategory, setSelectedId]);
+  }, [isSuccessMutateDeleteBanner, onClose, refetchBanner, setSelectedId]);
 
   return (
     <Modal
@@ -53,10 +53,10 @@ const DeleteCategoryModal = (props: PropTypes) => {
       }}
     >
       <ModalContent className="m-4">
-        <ModalHeader>Delete Category</ModalHeader>
+        <ModalHeader>Delete Banner</ModalHeader>
         <ModalBody>
           <p className="text-medium">
-            Are you sure you want to delete this category ?
+            Are you sure you want to delete this banner ?
           </p>
         </ModalBody>
         <ModalFooter>
@@ -64,20 +64,20 @@ const DeleteCategoryModal = (props: PropTypes) => {
             color="danger"
             variant="flat"
             onPress={() => onClose()}
-            disabled={isPendingMutateDeleteCategory}
+            disabled={isPendingMutateDeleteBanner}
           >
             Cancel
           </Button>
           <Button
             color="danger"
             type="submit"
-            disabled={isPendingMutateDeleteCategory}
-            onPress={() => mutateDeleteCategory(selectedId)}
+            disabled={isPendingMutateDeleteBanner}
+            onPress={() => mutateDeleteBanner(selectedId)}
           >
-            {isPendingMutateDeleteCategory ? (
+            {isPendingMutateDeleteBanner ? (
               <Spinner size="sm" color="white" />
             ) : (
-              "Delete Category"
+              "Delete Banner"
             )}
           </Button>
         </ModalFooter>
@@ -86,4 +86,4 @@ const DeleteCategoryModal = (props: PropTypes) => {
   );
 };
 
-export default DeleteCategoryModal;
+export default DeleteBannerModal;

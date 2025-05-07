@@ -28,7 +28,7 @@ const Category = () => {
     if (isReady) {
       setUrl();
     }
-  }, [isReady]);
+  }, [isReady, setUrl]);
 
   const addCategoryModal = useDisclosure();
   const deleteCategoryModal = useDisclosure();
@@ -58,7 +58,7 @@ const Category = () => {
           return cellValue as ReactNode;
       }
     },
-    [push, deleteCategoryModal],
+    [push, deleteCategoryModal, setSelectedId],
   );
 
   return (

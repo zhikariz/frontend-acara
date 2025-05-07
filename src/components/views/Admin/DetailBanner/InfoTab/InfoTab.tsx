@@ -1,27 +1,28 @@
-import { ICategory } from "@/types/Category";
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
   Input,
+  Select,
+  SelectItem,
   Skeleton,
   Spinner,
-  Textarea,
 } from "@heroui/react";
 import useInfoTab from "./useInfoTab";
 import { Controller } from "react-hook-form";
 import { useEffect } from "react";
+import { IBanner } from "@/types/Banner";
 
 interface PropTypes {
-  dataCategory: ICategory;
-  onUpdate: (data: ICategory) => void;
+  dataBanner: IBanner;
+  onUpdate: (data: IBanner) => void;
   isPendingUpdate: boolean;
   isSuccessUpdate: boolean;
 }
 
 const InfoTab = (props: PropTypes) => {
-  const { dataCategory, onUpdate, isPendingUpdate, isSuccessUpdate } = props;
+  const { dataBanner, onUpdate, isPendingUpdate, isSuccessUpdate } = props;
 
   const {
     controlUpdateInfo,
@@ -32,9 +33,9 @@ const InfoTab = (props: PropTypes) => {
   } = useInfoTab();
 
   useEffect(() => {
-    setValueUpdateInfo("name", `${dataCategory?.name}`);
-    setValueUpdateInfo("description", `${dataCategory?.description}`);
-  }, [dataCategory, setValueUpdateInfo]);
+    setValueUpdateInfo("title", `${dataBanner?.title}`);
+    setValueUpdateInfo("isShow", `${dataBanner?.isShow}`);
+  }, [dataBanner, setValueUpdateInfo]);
 
   useEffect(() => {
     if (isSuccessUpdate) {
@@ -45,9 +46,9 @@ const InfoTab = (props: PropTypes) => {
   return (
     <Card className="w-full p-4 lg:w-1/2">
       <CardHeader className="flex-col items-center">
-        <h1 className="w-full text-xl font-bold">Category Information</h1>
+        <h1 className="w-full text-xl font-bold">Banner Information</h1>
         <p className="w-full text-small text-default-400">
-          Manage information of this category
+          Manage information of this banner
         </p>
       </CardHeader>
       <CardBody>
@@ -55,43 +56,46 @@ const InfoTab = (props: PropTypes) => {
           className="flex flex-col gap-4"
           onSubmit={handleSubmitUpdateInfo(onUpdate)}
         >
-          <Skeleton isLoaded={!!dataCategory?.name} className="rounded-lg">
+          <Skeleton isLoaded={!!dataBanner?.title} className="rounded-lg">
             <Controller
-              name="name"
+              name="title"
               control={controlUpdateInfo}
               render={({ field }) => (
                 <Input
                   {...field}
-                  label="Name"
+                  label="Title"
                   variant="bordered"
                   labelPlacement="outside"
                   type="text"
-                  defaultValue={dataCategory?.name}
-                  isInvalid={errorsUpdateInfo.name !== undefined}
-                  errorMessage={errorsUpdateInfo.name?.message}
+                  defaultValue={dataBanner?.title}
+                  isInvalid={errorsUpdateInfo.title !== undefined}
+                  errorMessage={errorsUpdateInfo.title?.message}
                   className="mt-2"
                 />
               )}
             />
           </Skeleton>
           <Skeleton
-            isLoaded={!!dataCategory?.description}
+            isLoaded={dataBanner?.isShow !== undefined}
             className="rounded-lg"
           >
             <Controller
-              name="description"
+              name="isShow"
               control={controlUpdateInfo}
               render={({ field }) => (
-                <Textarea
+                <Select
                   {...field}
-                  label="Description"
+                  label="Status"
                   variant="bordered"
-                  isInvalid={errorsUpdateInfo.description !== undefined}
-                  errorMessage={errorsUpdateInfo.description?.message}
+                  isInvalid={errorsUpdateInfo.isShow !== undefined}
+                  errorMessage={errorsUpdateInfo.isShow?.message}
                   labelPlacement="outside"
-                  className="mt-2"
-                  defaultValue={dataCategory?.description}
-                />
+                  defaultSelectedKeys={[dataBanner?.isShow ? "true" : "false"]}
+                  disallowEmptySelection
+                >
+                  <SelectItem key="true">Publish</SelectItem>
+                  <SelectItem key="false">Draft</SelectItem>
+                </Select>
               )}
             />
           </Skeleton>
@@ -99,7 +103,7 @@ const InfoTab = (props: PropTypes) => {
             color="danger"
             className="mt-2 disabled:bg-default-500"
             type="submit"
-            disabled={isPendingUpdate || !dataCategory?._id}
+            disabled={isPendingUpdate || !dataBanner?._id}
           >
             {isPendingUpdate ? (
               <Spinner size="sm" color="white" />

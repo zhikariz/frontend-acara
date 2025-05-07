@@ -42,7 +42,7 @@ const DeleteTicketModal = (props: PropTypes) => {
       refetchTicket();
       setSelectedTicket(null);
     }
-  }, [isSuccessMutateDeleteTicket, onClose, refetchTicket]);
+  }, [isSuccessMutateDeleteTicket, onClose, refetchTicket, setSelectedTicket]);
 
   return (
     <Modal

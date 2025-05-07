@@ -49,7 +49,7 @@ const UpdateTicketModal = (props: PropTypes) => {
       refetchTicket();
       setSelectedTicket(null);
     }
-  }, [isSuccessMutateUpdateTicket, refetchTicket, onClose]);
+  }, [isSuccessMutateUpdateTicket, refetchTicket, onClose, setSelectedTicket]);
 
   useEffect(() => {
     if (selectedTicket) {
@@ -58,7 +58,7 @@ const UpdateTicketModal = (props: PropTypes) => {
       setValueUpdateTicket("quantity", `${selectedTicket.quantity}`);
       setValueUpdateTicket("description", `${selectedTicket.description}`);
     }
-  }, [selectedTicket]);
+  }, [selectedTicket, setValueUpdateTicket]);
 
   const handleOnClose = () => {
     reset();

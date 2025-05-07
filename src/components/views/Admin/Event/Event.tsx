@@ -27,7 +27,7 @@ const Event = () => {
     if (isReady) {
       setUrl();
     }
-  }, [isReady]);
+  }, [isReady, setUrl]);
 
   const addEventModal = useDisclosure();
   const deleteEventModal = useDisclosure();
@@ -71,7 +71,7 @@ const Event = () => {
           return cellValue as ReactNode;
       }
     },
-    [push, deleteEventModal],
+    [push, deleteEventModal, setSelectedId],
   );
 
   return (

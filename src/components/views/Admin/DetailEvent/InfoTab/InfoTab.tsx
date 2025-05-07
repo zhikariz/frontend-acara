@@ -50,13 +50,13 @@ const InfoTab = (props: PropTypes) => {
       setValueUpdateInfo("isFeatured", `${dataEvent?.isFeatured}`);
       setValueUpdateInfo("description", `${dataEvent?.description}`);
     }
-  }, [dataEvent]);
+  }, [dataEvent, setValueUpdateInfo]);
 
   useEffect(() => {
     if (isSuccessUpdate) {
       resetUpdateInfo();
     }
-  }, [isSuccessUpdate]);
+  }, [isSuccessUpdate, resetUpdateInfo]);
 
   return (
     <Card className="w-full p-4 lg:w-1/2">

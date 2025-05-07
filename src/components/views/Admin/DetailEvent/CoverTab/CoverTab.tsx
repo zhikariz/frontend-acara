@@ -39,7 +39,7 @@ const CoverTab = (props: PropTypes) => {
     if (isSuccessUpdate) {
       resetUpdateCover();
     }
-  }, [isSuccessUpdate]);
+  }, [isSuccessUpdate, resetUpdateCover]);
   return (
     <Card className="w-full p-4 lg:w-1/2">
       <CardHeader className="flex-col items-center">

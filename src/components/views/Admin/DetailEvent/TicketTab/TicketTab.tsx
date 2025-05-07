@@ -54,7 +54,7 @@ const TicketTab = () => {
           return cellValue as ReactNode;
       }
     },
-    [],
+    [deleteTicketModal, setSelectedTicket, updateTicketModal],
   );
   return (
     <Fragment>

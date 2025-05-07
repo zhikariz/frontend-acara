@@ -60,13 +60,13 @@ const LocationTab = (props: PropTypes) => {
         `${dataEvent?.location?.coordinates[1]}`,
       );
     }
-  }, [dataEvent]);
+  }, [dataEvent, setValueUpdateLocation]);
 
   useEffect(() => {
     if (isSuccessUpdate) {
       resetUpdateLocation();
     }
-  }, [isSuccessUpdate]);
+  }, [isSuccessUpdate, resetUpdateLocation]);
 
   return (
     <Card className="w-full p-4 lg:w-1/2">

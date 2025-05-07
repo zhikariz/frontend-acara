@@ -81,6 +81,7 @@ const DataTable = (props: PropTypes) => {
     handleSearch,
     handleClearSearch,
     onClickButtonTopContent,
+    showSearch,
   ]);
   const BottomContent = useMemo(() => {
     return (
@@ -120,6 +121,7 @@ const DataTable = (props: PropTypes) => {
     totalPages,
     handleChangeLimit,
     handleChangePage,
+    showLimit,
   ]);
   return (
     <Table

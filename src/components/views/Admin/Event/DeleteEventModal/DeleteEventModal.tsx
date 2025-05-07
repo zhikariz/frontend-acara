@@ -40,7 +40,7 @@ const DeleteEventModal = (props: PropTypes) => {
       refetchEvent();
       setSelectedId("");
     }
-  }, [isSuccessMutateDeleteEvent, onClose, refetchEvent]);
+  }, [isSuccessMutateDeleteEvent, onClose, refetchEvent, setSelectedId]);
 
   return (
     <Modal
