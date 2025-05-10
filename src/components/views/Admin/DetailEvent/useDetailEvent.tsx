@@ -2,6 +2,7 @@ import { ToasterContext } from "@/contexts/ToasterContext";
 import eventServices from "@/services/event.service";
 import { IEvent, IEventForm } from "@/types/Event";
 import { toDateStandard } from "@/utils/date";
+import { DateValue } from "@heroui/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useContext } from "react";
@@ -51,8 +52,8 @@ const useDetailEvent = () => {
   const handleUpdateEvent = (data: IEventForm) => {
     const payload = {
       ...data,
-      startDate: data.startDate ? toDateStandard(data.startDate) : "",
-      endDate: data.endDate ? toDateStandard(data.endDate) : "",
+      startDate: toDateStandard(data.startDate as DateValue),
+      endDate: toDateStandard(data.endDate as DateValue),
     };
 
     mutateUpdateEvent(payload);
@@ -60,7 +61,7 @@ const useDetailEvent = () => {
 
   const handleUpdateLocation = (data: IEventForm) => {
     const payload = {
-      isOnline: data.isOnline === "true" || data.isOnline === true,
+      ...data,
       location: {
         address: `${data.address}`,
         region: `${data.region}`,

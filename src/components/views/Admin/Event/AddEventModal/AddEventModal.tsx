@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import useAddEventModal from "./useAddEventModal";
 import { ICategory } from "@/types/Category";
 import { IRegency } from "@/types/Event";
+import { getLocalTimeZone, now } from "@internationalized/date";
 
 interface PropTypes {
   isOpen: boolean;
@@ -47,6 +48,7 @@ const AddEventModal = (props: PropTypes) => {
     dataRegion,
     handleSearchRegion,
     searchRegency,
+    setValue,
   } = useAddEventModal();
 
   useEffect(() => {
@@ -55,6 +57,11 @@ const AddEventModal = (props: PropTypes) => {
       refetchEvent();
     }
   }, [isSuccessMutateAddEvent, refetchEvent, onClose]);
+
+  useEffect(() => {
+    setValue("startDate", now(getLocalTimeZone()));
+    setValue("endDate", now(getLocalTimeZone()));
+  }, [onOpenChange, setValue]);
 
   const disabledSubmit =
     isPendingMutateAddEvent ||
@@ -190,23 +197,7 @@ const AddEventModal = (props: PropTypes) => {
                     </Select>
                   )}
                 />
-                <Controller
-                  name="isOnline"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      label="Online / Offline"
-                      variant="bordered"
-                      isInvalid={errors.isOnline !== undefined}
-                      errorMessage={errors.isOnline?.message}
-                      disallowEmptySelection
-                    >
-                      <SelectItem key="true">Online</SelectItem>
-                      <SelectItem key="false">Offline</SelectItem>
-                    </Select>
-                  )}
-                />
+
                 <Controller
                   name="description"
                   control={control}
@@ -224,6 +215,23 @@ const AddEventModal = (props: PropTypes) => {
               </div>
               <p className="text-sm font-bold">Location</p>
               <div className="mb-4 flex flex-col gap-4">
+                <Controller
+                  name="isOnline"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      label="Online / Offline"
+                      variant="bordered"
+                      isInvalid={errors.isOnline !== undefined}
+                      errorMessage={errors.isOnline?.message}
+                      disallowEmptySelection
+                    >
+                      <SelectItem key="true">Online</SelectItem>
+                      <SelectItem key="false">Offline</SelectItem>
+                    </Select>
+                  )}
+                />
                 <Controller
                   name="region"
                   control={control}

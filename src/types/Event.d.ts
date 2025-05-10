@@ -5,8 +5,8 @@ interface IEvent {
   name?: string;
   slug?: string;
   category?: string;
-  startDate?: string;
-  endDate?: string;
+  startDate?: string | DateValue;
+  endDate?: string | DateValue;
   isPublish?: boolean | string;
   isFeatured?: boolean | string;
   isOnline?: boolean | string;
@@ -27,8 +27,6 @@ interface IRegency {
 interface IEventForm extends IEvent {
   address?: string;
   region?: string;
-  startDate?: DateValue;
-  endDate?: DateValue;
   latitude?: string;
   longitude?: string;
 }

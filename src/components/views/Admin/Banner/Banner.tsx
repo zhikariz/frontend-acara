@@ -46,6 +46,7 @@ const Banner = () => {
               width={300}
               height={200}
               className="rounded-lg"
+              priority
             />
           );
         case "isShow":

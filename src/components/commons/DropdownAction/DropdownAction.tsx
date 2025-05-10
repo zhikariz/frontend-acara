@@ -29,7 +29,7 @@ const DropdownAction = (props: PropTypes) => {
           Detail
         </DropdownItem>
         <DropdownItem
-          key="detail-category-button"
+          key="delete-category-button"
           className="text-danger-500"
           onPress={onPressButtonDelete}
         >

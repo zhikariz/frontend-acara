@@ -8,7 +8,6 @@ import { IEvent, IEventForm } from "@/types/Event";
 import { toDateStandard } from "@/utils/date";
 import { DateValue } from "@heroui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { getLocalTimeZone, now } from "@internationalized/date";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -56,9 +55,6 @@ const useAddEventModal = () => {
 
   const preview = watch("banner");
   const fileUrl = getValues("banner");
-
-  setValue("startDate", now(getLocalTimeZone()));
-  setValue("endDate", now(getLocalTimeZone()));
 
   const handleUploadBanner = (
     files: FileList,
@@ -131,11 +127,8 @@ const useAddEventModal = () => {
   const handleAddEvent = (data: IEventForm) => {
     const payload = {
       ...data,
-      isFeatured: data.isFeatured === "true" || data.isFeatured === true,
-      isPublish: data.isPublish === "true" || data.isPublish === true,
-      isOnline: data.isOnline === "true" || data.isOnline === true,
-      startDate: data.startDate ? toDateStandard(data.startDate) : "",
-      endDate: data.endDate ? toDateStandard(data.endDate) : "",
+      startDate: toDateStandard(data.startDate as DateValue),
+      endDate: toDateStandard(data.endDate as DateValue),
       location: {
         address: `${data.address}`,
         region: `${data.region}`,
@@ -167,6 +160,7 @@ const useAddEventModal = () => {
     dataRegion,
     handleSearchRegion,
     searchRegency,
+    setValue,
   };
 };
 
