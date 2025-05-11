@@ -17,29 +17,29 @@ const HomeCategoryList = (props: PropTypes) => {
       </CardHeader>
       <CardBody className="mt-4 p-0">
         <div className="grid auto-cols-[8rem] grid-flow-col gap-4 overflow-x-auto lg:grid-cols-8">
-          {!isLoading
+          {!isLoading && categories
             ? categories?.map((category) => (
-              <Link
-                className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border p-4"
-                key={`category-${category._id}`}
-                href={`/event?category=${category._id}`}
-              >
-                <Image
-                  src={`${category.icon}`}
-                  alt={`${category.name}`}
-                  width={100}
-                  height={100}
-                  className="1/2"
-                />
-                <p className="text-md font-bold">{category.name}</p>
-              </Link>
-            ))
+                <Link
+                  className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border p-4"
+                  key={`category-${category._id}`}
+                  href={`/event?category=${category._id}`}
+                >
+                  <Image
+                    src={`${category.icon}`}
+                    alt={`${category.name}`}
+                    width={100}
+                    height={100}
+                    className="1/2"
+                  />
+                  <p className="text-md font-bold">{category.name}</p>
+                </Link>
+              ))
             : Array.from({ length: 8 }).map((_, index) => (
-              <Skeleton
-                key={`list-category-skeleton-${index}`}
-                className="aspect-square rounded-xl"
-              />
-            ))}
+                <Skeleton
+                  key={`list-category-skeleton-${index}`}
+                  className="aspect-square rounded-xl"
+                />
+              ))}
         </div>
       </CardBody>
     </Card>
