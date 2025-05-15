@@ -13,7 +13,7 @@ const Payment = () => {
     if (router.isReady) {
       mutateUpdateOrderStatus();
     }
-  }, [router.isReady]);
+  }, [router.isReady, mutateUpdateOrderStatus]);
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-10 p-4">

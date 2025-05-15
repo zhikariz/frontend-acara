@@ -65,7 +65,6 @@ const DetailEventCart = (props: PropTypes) => {
             onPress={onCreateOrder}
           >
             {isLoading ? <Spinner color="white" size="sm" /> : "Checkout"}
-            Checkout
           </Button>
         </CardBody>
       ) : (
