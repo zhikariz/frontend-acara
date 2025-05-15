@@ -86,11 +86,17 @@ const useDetailEvent = () => {
           message: error.message,
         });
       },
-      onSuccess: (result) => {
-        const transactionToken = result?.payment?.token;
-        (
-          window as unknown as { snap: { pay: (token: string) => void } }
-        ).snap.pay(transactionToken);
+      onSuccess: async (result) => {
+        const token = result?.payment?.token;
+
+        if (typeof window !== "undefined" && window.snap?.pay) {
+          window.snap.pay(token);
+        } else {
+          setToaster({
+            type: "error",
+            message: "Midtrans Snap is not available.",
+          });
+        }
       },
     });
 
