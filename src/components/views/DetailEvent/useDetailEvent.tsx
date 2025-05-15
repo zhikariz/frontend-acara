@@ -77,6 +77,22 @@ const useDetailEvent = () => {
     return data.data;
   };
 
+  const waitForSnap = (maxRetries = 10, delay = 300): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const check = () => {
+        if (window.snap?.pay) {
+          resolve();
+        } else if (maxRetries <= 0) {
+          reject(new Error("Midtrans Snap is not available."));
+        } else {
+          maxRetries--;
+          setTimeout(check, delay);
+        }
+      };
+      check();
+    });
+  };
+
   const { mutate: mutateCreateOrder, isPending: isPendingMutateCreateOrder } =
     useMutation({
       mutationFn: createOrder,
@@ -89,12 +105,13 @@ const useDetailEvent = () => {
       onSuccess: async (result) => {
         const token = result?.payment?.token;
 
-        if (typeof window !== "undefined" && window.snap?.pay) {
-          window.snap.pay(token);
-        } else {
+        try {
+          await waitForSnap(); // ✅ waits until `window.snap.pay` is ready
+          window.snap?.pay(token);
+        } catch {
           setToaster({
             type: "error",
-            message: "Midtrans Snap is not available.",
+            message: "Failed to initiate payment. Please try again.",
           });
         }
       },

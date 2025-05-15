@@ -2,7 +2,7 @@ export {};
 
 declare global {
   interface Window {
-    snap: {
+    snap?: {
       pay: (token: string) => void;
     };
   }
