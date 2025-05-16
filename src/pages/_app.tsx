@@ -6,8 +6,6 @@ import { SessionProvider } from "next-auth/react";
 import AppShell from "@/components/commons/AppShell";
 import { ToasterProvider } from "@/contexts/ToasterContext";
 import { onErrorHandler } from "@/libs/axios/responseHandler";
-import Script from "next/script";
-import environment from "@/libs/config/environment";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,17 +33,7 @@ export default function App({
         <HeroUIProvider>
           <ToasterProvider>
             <AppShell>
-              <>
-                <Script
-                  src={environment.MIDTRANS_SNAP_URL} // e.g. "https://app.midtrans.com/snap/snap.js"
-                  data-client-key={environment.MIDTRANS_CLIENT_KEY}
-                  strategy="afterInteractive" // ✅ use this instead of lazyOnload
-                  onLoad={() => console.log("Midtrans Snap loaded")}
-                  onError={(e) => console.error("Failed to load Snap.js", e)}
-                />
-
-                <Component {...pageProps} />
-              </>
+              <Component {...pageProps} />
             </AppShell>
           </ToasterProvider>
         </HeroUIProvider>

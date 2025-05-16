@@ -12,6 +12,8 @@ import Image from "next/image";
 import { ITicket } from "@/types/Ticket";
 import DetailEventTicket from "./DetailEventTicket";
 import DetailEventCart from "./DetailEventCart";
+import Script from "next/script";
+import environment from "@/libs/config/environment";
 
 const DetailEvent = () => {
   const {
@@ -27,6 +29,13 @@ const DetailEvent = () => {
 
   return (
     <div className="px-8 lg:px-0">
+      <Script
+        src={environment.MIDTRANS_SNAP_URL} // e.g. "https://app.midtrans.com/snap/snap.js"
+        data-client-key={environment.MIDTRANS_CLIENT_KEY}
+        strategy="afterInteractive" // ✅ use this instead of lazyOnload
+        onLoad={() => console.log("Midtrans Snap loaded")}
+        onError={(e) => console.error("Failed to load Snap.js", e)}
+      />
       <Skeleton
         className="h-4 w-1/4 rounded-lg"
         isLoaded={!!dataDetailEvent?.name}
