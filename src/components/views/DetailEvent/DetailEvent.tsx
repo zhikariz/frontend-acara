@@ -30,9 +30,11 @@ const DetailEvent = () => {
   return (
     <div className="px-8 lg:px-0">
       <Script
-        src={environment.MIDTRANS_SNAP_URL}
+        src={environment.MIDTRANS_SNAP_URL} // e.g. "https://app.midtrans.com/snap/snap.js"
         data-client-key={environment.MIDTRANS_CLIENT_KEY}
-        strategy="lazyOnload"
+        strategy="afterInteractive" // ✅ use this instead of lazyOnload
+        onLoad={() => console.log("Midtrans Snap loaded")}
+        onError={(e) => console.error("Failed to load Snap.js", e)}
       />
       <Skeleton
         className="h-4 w-1/4 rounded-lg"
