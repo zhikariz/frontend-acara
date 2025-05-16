@@ -6,6 +6,8 @@ import { SessionProvider } from "next-auth/react";
 import AppShell from "@/components/commons/AppShell";
 import { ToasterProvider } from "@/contexts/ToasterContext";
 import { onErrorHandler } from "@/libs/axios/responseHandler";
+import Script from "next/script";
+import environment from "@/libs/config/environment";
 
 const queryClient = new QueryClient({
   defaultOptions: {
