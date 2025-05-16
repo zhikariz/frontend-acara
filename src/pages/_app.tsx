@@ -33,7 +33,17 @@ export default function App({
         <HeroUIProvider>
           <ToasterProvider>
             <AppShell>
-              <Component {...pageProps} />
+              <>
+                <Script
+                  src={environment.MIDTRANS_SNAP_URL} // e.g. "https://app.midtrans.com/snap/snap.js"
+                  data-client-key={environment.MIDTRANS_CLIENT_KEY}
+                  strategy="afterInteractive" // ✅ use this instead of lazyOnload
+                  onLoad={() => console.log("Midtrans Snap loaded")}
+                  onError={(e) => console.error("Failed to load Snap.js", e)}
+                />
+
+                <Component {...pageProps} />
+              </>
             </AppShell>
           </ToasterProvider>
         </HeroUIProvider>
